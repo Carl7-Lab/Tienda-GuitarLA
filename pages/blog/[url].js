@@ -10,7 +10,7 @@ function entradaBlog({entrada}) {
 
   return (
     <Layout
-      pagina="Blog"
+      pagina={titulo}
     >
       <main className='contenedor'>
         <h2 className='heading'>{titulo}</h2>
