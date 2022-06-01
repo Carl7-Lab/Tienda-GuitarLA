@@ -6,7 +6,7 @@ import styles from '../../styles/Entrada.module.css'
 function entradaBlog({entrada}) {
 
   console.log(entrada)
-  const { titulo, contenido, imagen, published_at } = entrada
+  const { titulo, contenido, imagen, published_at } = entrada[0]
 
   return (
     <Layout
@@ -32,7 +32,7 @@ export async function getStaticPaths() {
     const entradas = await respuesta.json()
 
     const paths = entradas.map(entrada =>({
-        params: { id: entrada.id }
+        params: { url: entrada.url }
     }))
 
     return {
@@ -41,10 +41,10 @@ export async function getStaticPaths() {
     }
 }
 
-export async function getStaticProps({params: {id}}) {
+export async function getStaticProps({params: {url}}) {
 
-    const url =`${process.env.API_URL}/blogs/${id}`
-    const respuesta = await fetch(url)
+    const urlBlog =`${process.env.API_URL}/blogs?url=${url}`
+    const respuesta = await fetch(urlBlog)
     const entrada = await respuesta.json()
 
     return {
