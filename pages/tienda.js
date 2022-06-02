@@ -1,20 +1,16 @@
 import Layout from '../components/Layout'
+import Listado from '../components/Listado'
 
 function Tienda({guitarras}) {
-  console.log(guitarras)
   return (
     <Layout
       pagina='Tienda Virtual'
     >
       <main>
         <h1 className='heading'>Nuestra Collección</h1>
-        <div>
-          {guitarras.map(guitarra => (
-            <div key={guitarra.id}>
-              <h1>{guitarra.nombre}</h1>
-            </div>
-          ))}
-        </div>
+        <Listado
+          guitarras={guitarras}
+        />
       </main>
     </Layout>
   )
