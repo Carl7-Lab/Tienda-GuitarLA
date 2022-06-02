@@ -1,17 +1,20 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import styles from '../styles/Guitarra.module.css'
 
 function Guitarra({guitarra}) {
   const { descripcion, imagen, nombre, precio, url } = guitarra
   return (
-    <div>
-      <Image layout='responsive' width={500} height={350} src={imagen.url} alt={`Imagen Guitarra ${nombre}`} />
-      <div>
+    <div className={styles.guitarra}>
+      <Image priority={true} layout='responsive' width={170} height={370} src={imagen.url} alt={`Imagen Guitarra ${nombre}`} />
+      <div className={styles.contenido}>
         <h3>{nombre}</h3>
-        <p>{descripcion}</p>
-        <p>${precio}</p>
+        <p className={styles.descripcion}>{descripcion}</p>
+        <p className={styles.precio}>${precio}</p>
         <Link href={`/guitarras/${url}`}>
-          Ver Producto
+          <a className={styles.enlace}>
+            Ver Producto
+          </a>
         </Link>
       </div>
     </div>
