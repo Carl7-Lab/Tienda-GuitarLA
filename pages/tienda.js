@@ -6,7 +6,7 @@ function Tienda({guitarras}) {
     <Layout
       pagina='Tienda Virtual'
     >
-      <main>
+      <main className='contenedor'>
         <h1 className='heading'>Nuestra Collección</h1>
         <Listado
           guitarras={guitarras}
