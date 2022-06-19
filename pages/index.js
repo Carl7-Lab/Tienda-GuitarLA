@@ -1,10 +1,14 @@
+import Curso from '../components/Curso'
 import Layout from '../components/Layout'
 import Listado from '../components/Listado'
+import ListadoBlog from '../components/ListadoBlog'
 
-export default function Home({guitarras}) {
+export default function Home({guitarras, curso, entradas}) {
+
   return (
     <Layout
       pagina='Inicio'
+      guitarra={guitarras[3]}
     >
       <main className='contenedor'>
         <h1 className='heading'>Nuestra Colección</h1>
@@ -12,18 +16,41 @@ export default function Home({guitarras}) {
           guitarras={guitarras}
         />
       </main>
+      <Curso
+        curso={curso}
+      />
+      <section className='contenedor'>
+        <ListadoBlog
+          entradas={entradas}
+        />
+      </section>
     </Layout>
   )
 }
 
 export async function getStaticProps() {
-  const url =`${process.env.API_URL}/guitarras`
-  const respuesta = await fetch(url)
-  const guitarras = await respuesta.json()
+
+  const urlGuitarras = `${process.env.API_URL}/guitarras`
+  const urlCursos = `${process.env.API_URL}/cursos`
+  const urlBlog =`${process.env.API_URL}/blogs?_limit=3&_sort=created_at:desc`
+
+  const [resGuitrras, resCursos, resBlog] = await Promise.all([
+    fetch(urlGuitarras),
+    fetch(urlCursos),
+    fetch(urlBlog)
+  ])
+
+  const [guitarras, curso, entradas] = await Promise.all([
+    resGuitrras.json(),
+    resCursos.json(),
+    resBlog.json()
+  ])
 
   return {
     props : {
-      guitarras
+      guitarras,
+      curso,
+      entradas
     }
   }
 }
